@@ -92,6 +92,7 @@ public class UserServlet extends HttpServlet {
 
         Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, e);
         }
+        int roleID;
         if(action != null && action.equals("add")){
             try{
                 String email = request.getParameter("addEmail");
@@ -99,8 +100,9 @@ public class UserServlet extends HttpServlet {
                 String lName = request.getParameter("addLName");
                 String password = request.getParameter("addPassword");
                 String roleName = request.getParameter("addRole");
-             
-                int roleID= roleService.getRoleID(roleName);
+                roleID = roleCheck(request.getParameter("addRole"));    
+                     
+
 
                 userService.insert(email, true, fName, lName, password, new Role(roleID,roleName));      
                 
@@ -117,8 +119,8 @@ public class UserServlet extends HttpServlet {
                         String lName = request.getParameter("editLName");
                         String password = request.getParameter("editPassword");
                         String roleName = request.getParameter("editRole");
+                        roleID = roleCheck(request.getParameter("editRole")); 
 
-                        int roleID= roleService.getRoleID(roleName);
 
                         userService.update(email, true, fName, lName, password, new Role(roleID,roleName));      
 
@@ -130,5 +132,21 @@ public class UserServlet extends HttpServlet {
 
         this.getServletContext().getRequestDispatcher("/WEB-INF/users.jsp").forward(request, response);
     }
+       
+        protected int roleCheck(String roleName) {
+        int roleId = 0;
 
+        switch (roleName) {
+            case "1":
+                roleId = 1;
+                break;
+            case "2":
+                roleId = 2;
+                break;
+            case "3":
+                roleId = 3;
+                break;
+        }
+        return roleId;
+    }
 }
