@@ -1,13 +1,9 @@
 package ca.sait.lab7.dataaccess;
 
-import ca.sait.lab7.models.Role;
 import ca.sait.lab7.models.User;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
 
@@ -25,70 +21,76 @@ public class UserDB {
     }
 
     public User get(String email) throws Exception {
-     
+      EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        
+        try {
+            User user = em.find(User.class, email);
+            return user;
+        } finally {
+            em.close();
+        }
     }
 
     public boolean insert(User user) throws Exception {
-        ConnectionPool cp = ConnectionPool.getInstance();
-        Connection con = cp.getConnection();
-        PreparedStatement ps = null;
-        String sql = "INSERT INTO `userdb`.`user` (`email`, `first_name`, `last_name`, `password`, `role`) VALUES (?, ?, ?, ?, ?);";
-        boolean inserted = false;        
-
+           EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        EntityTransaction trans = em.getTransaction();
+        
         try {
-            ps = con.prepareStatement(sql);
-            ps.setString(1, user.getEmail());
-            ps.setString(2, user.getFirstName());
-            ps.setString(3, user.getLastName());
-            ps.setString(4, user.getPassword());
-            ps.setInt(5, user.getRole().getId());           
+            trans.begin();
+            em.persist(user);
+            em.merge(user);
+            trans.commit();
 
-            inserted = ps.executeUpdate() !=0;
+            return true;
+        } catch (Exception ex) {
+            trans.rollback();
+
+            return false;
         } finally {
-            DBUtil.closePreparedStatement(ps);
-            cp.freeConnection(con);
+            em.close();
         }
-    return inserted;
+        
     }
 
     public boolean update(User user) throws Exception {
-        ConnectionPool cp = ConnectionPool.getInstance();
-        Connection con = cp.getConnection();
-        PreparedStatement ps = null;
-        String sql = "UPDATE user SET `first_name` = ?, `last_name` = ?, `password` = ?, `role` = ? WHERE  `email`=?;";
-        boolean updated;        
-
+          EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        EntityTransaction trans = em.getTransaction();
+        
         try {
-            ps = con.prepareStatement(sql);
-            
-            ps.setString(1, user.getFirstName());
-            ps.setString(2, user.getLastName());
-            ps.setString(3, user.getPassword());
-            ps.setInt(4, user.getRole().getId());
-            ps.setString(5, user.getEmail());
-            updated = ps.executeUpdate() != 0;
+            trans.begin();
+            em.persist(user);
+            em.merge(user);
+            trans.commit();
+
+            return true;
+        } catch (Exception ex) {
+            trans.rollback();
+
+            return false;
         } finally {
-            DBUtil.closePreparedStatement(ps);
-            cp.freeConnection(con);
+            em.close();
         }
-        return updated;
+        
     }
 
     public boolean delete(User user) throws Exception {
-        ConnectionPool cp = ConnectionPool.getInstance();
-        Connection con = cp.getConnection();
-        PreparedStatement ps = null;
-        String sql = "UPDATE user SET active = 0 WHERE email = ?";
-        boolean deleted;
+       EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        EntityTransaction trans = em.getTransaction();
+         
         try {
-            ps = con.prepareStatement(sql);
-            ps.setString(1, user.getEmail());
-            deleted = ps.executeUpdate() !=0;
+          
+            trans.begin();
+            em.remove(em.merge(user));
+            trans.commit();
+
+            return true;
+        } catch (Exception ex) {
+            trans.rollback();
+
+            return false;
         } finally {
-            DBUtil.closePreparedStatement(ps);
-            cp.freeConnection(con);
+            em.close();
         }
-        return deleted;
     }
 
 }
