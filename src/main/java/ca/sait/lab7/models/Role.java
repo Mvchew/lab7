@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Entity
 @Table(name="role")
 @NamedQueries({
-    @NamedQuery(name = "Role.findAll", query = "SELECT r FROM ROLE r")
+    @NamedQuery(name = "Role.findAll", query = "SELECT r FROM Role r")
 })
 public class Role implements Serializable {
     @Id
@@ -34,6 +34,10 @@ public class Role implements Serializable {
         this.id = id;
         this.name = name; 
     }   
+
+    public Role(String roleName) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 
     public int getId() {
         return id;
