@@ -65,9 +65,9 @@
                         <input type="text" name="addPassword" id="addPassword" value=""><br>
                         <label for="addRole">Role:</label> 
                         <select name="addRole" id="addRole">
-                            <option value="Regular User">Regular User</option>
-                            <option value="Company Admin">Company Admin</option>
-                            <option value="System Admin">System Admin</option>
+                            <option value="2">Regular User</option>
+                            <option value="3">Company Admin</option>
+                            <option value="1">System Admin</option>
                         </select>
 
                         <button type="submit" >Create User</button>
@@ -88,9 +88,9 @@
                         <input type="text" name="editPassword" id="editPassword" value=""><br>
                         <label for="editRole">Role:</label> 
                         <select name="editRole" id="editRole">
-                            <option value="Regular User">Regular User</option>
-                            <option value="Company Admin">Company Admin</option>
-                            <option value="System Admin">System Admin</option>
+                            <option value="2">Regular User</option>
+                            <option value="3">Company Admin</option>
+                            <option value="1">System Admin</option>
                         </select>
 
                         <button type="submit" >Edit User</button>
