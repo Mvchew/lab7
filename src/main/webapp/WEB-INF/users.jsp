@@ -42,7 +42,7 @@
                                 ${user.role.name}
                             </td>
                             <td>
-                                <a href="user?action=delete&email=${user.email}">Delete</a>
+<!--                                <a href="user?action=delete&email=${user.email}">Delete</a>-->
                             </td>
                         </tr>
                     </c:forEach>
