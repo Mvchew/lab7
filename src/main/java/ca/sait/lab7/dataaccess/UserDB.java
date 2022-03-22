@@ -18,7 +18,7 @@ public class UserDB {
         
         try {
             Query query = em.createNamedQuery("User.findAll");
-            return user;
+            return query.getResultList();
         } finally {
             em.close();
         }
