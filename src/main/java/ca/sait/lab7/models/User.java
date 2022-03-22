@@ -15,7 +15,7 @@ import javax.persistence.*;
 
 public class User implements Serializable {
     @Id
-    @Basic
+    @Basic(optional = false)
     @Column
     private String email;
     @Column
