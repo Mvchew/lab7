@@ -32,7 +32,7 @@ public class UserDB {
     }
 
     public boolean insert(User user) throws Exception {
-           EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();
         
         try {
@@ -53,12 +53,12 @@ public class UserDB {
     }
 
     public boolean update(User user) throws Exception {
-          EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();
         
         try {
             trans.begin();
-            em.persist(user);
+            
             em.merge(user);
             trans.commit();
 
