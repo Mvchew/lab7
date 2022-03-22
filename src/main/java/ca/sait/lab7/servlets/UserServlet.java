@@ -93,6 +93,7 @@ public class UserServlet extends HttpServlet {
         Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, e);
         }
         int roleID;
+
         if(action != null && action.equals("add")){
             try{
                 String email = request.getParameter("addEmail");
@@ -133,7 +134,7 @@ public class UserServlet extends HttpServlet {
         this.getServletContext().getRequestDispatcher("/WEB-INF/users.jsp").forward(request, response);
     }
        
-        protected int roleCheck(String roleName) {
+        private int roleCheck(String roleName) {
         int roleId = 0;
 
         switch (roleName) {
