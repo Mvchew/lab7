@@ -7,7 +7,7 @@ import java.util.List;
 
 
 public class RoleService {
-    private RoleDB roleDB = new RoleDB();
+    private final RoleDB roleDB = new RoleDB();
    
     
     public List<Role> getAll() throws Exception {
@@ -16,9 +16,5 @@ public class RoleService {
         return roles;
     }
 
-    public int getRoleID(String roleName) throws Exception{
 
-        int id = this.roleDB.lookupRoleID(roleName);
-        return id;
-    }
 }
