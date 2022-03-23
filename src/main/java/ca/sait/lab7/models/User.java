@@ -10,7 +10,8 @@ import javax.persistence.*;
 @Entity
 @Table(name = "user")
 @NamedQueries({
-@NamedQuery (name = "User.findAll", query = "SELECT u FROM User u")
+    @NamedQuery (name = "User.findAll", query = "SELECT u FROM User u"),
+    @NamedQuery (name = "User.softDelete", query = "UPDATE User SET active = 0 WHERE email = :email"),
 })
 
 public class User implements Serializable {
@@ -38,7 +39,7 @@ public class User implements Serializable {
     public User(String email,boolean active, String firstName, String lastName, String password, Role role) {
         
         this.email = email;
-        this.active = active;
+        this.active = active ;
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
