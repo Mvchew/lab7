@@ -80,8 +80,10 @@ public class UserDB {
         try {
           
             trans.begin();
-Query query = em.createNamedQuery("User.softDelete", User.class);
-
+            Query query = em.createNamedQuery("User.softDelete", User.class);
+            query.setParameter("email", user.getEmail());
+            query.executeUpdate();
+            
             em.remove(em.merge(user));
             trans.commit();
 
