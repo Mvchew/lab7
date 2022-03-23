@@ -33,7 +33,7 @@ public class UserServlet extends HttpServlet {
         UserService userService = new UserService();
         RoleService roleService = new RoleService();
         String action = request.getParameter("action");
-        String email = request.getParameter("email");
+      
 
         try{
             List<User> users = userService.getAll();
@@ -53,7 +53,8 @@ public class UserServlet extends HttpServlet {
 
         if(action != null && action.equals("delete")){
             try{
-                userService.delete(email);
+            String email = request.getParameter("delete");
+                boolean deleted = userService.delete(email);
             }catch(Exception ex){
                 request.setAttribute("error", ex.getMessage());
             }
@@ -93,7 +94,6 @@ public class UserServlet extends HttpServlet {
         Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, e);
         }
         int roleID;
-
         if(action != null && action.equals("add")){
             try{
                 String email = request.getParameter("addEmail");
