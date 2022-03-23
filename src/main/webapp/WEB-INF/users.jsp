@@ -42,7 +42,7 @@
                                 ${user.role.name}
                             </td>
                             <td>
-<!--                                <a href="user?action=delete&email=${user.email}">Delete</a>-->
+                                <a href="user?action=delete&email=${user.email}">Delete</a>
                             </td>
                         </tr>
                     </c:forEach>
@@ -74,7 +74,7 @@
                     </form>
                 </div>
 
-                <div class="edit" style="float:right; margin: auto ">           
+                <div class="form2" style="float:right; margin: auto ">           
                     <form action="user" method="post">
                         <h2>Edit User</h2>
                         <input type="hidden" name="action" value="edit">
